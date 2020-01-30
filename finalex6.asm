@@ -1,0 +1,36 @@
+	PUBLIC SAYIBOL
+mycs SEGMENT PARA PUBLIC 'code'
+	ASSUME CS:mycs
+	
+	SAYIBOL PROC FAR
+		PUSH CX
+		PUSH BX
+		PUSH DX
+		PUSH BP
+		
+		MOV BP,SP
+		MOV AX,[BP+10]
+		MOV CX,16
+		XOR BX,BX
+		
+	L1:
+		ROR AX,1
+		ADC BX,0
+		LOOP L1
+		
+		XOR DX,DX
+		CMP BX,0
+		JE sikinti
+		IDIV BX
+	
+	sikinti:
+		MOV AX,-1
+		
+		POP BP
+		POP DX
+		POP BX
+		POP CX
+		RET 
+	SAYIBOL ENDP
+mycs ENDS
+	END

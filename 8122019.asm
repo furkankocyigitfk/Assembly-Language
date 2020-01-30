@@ -1,0 +1,34 @@
+cdseg	SEGMENT PARA 'code'
+		ORG 100H
+		ASSUME CS:cdseg,DS:cdseg,SS:cdseg
+	
+	BASLA:
+		JMP MAIN
+		ELEMAN DW 12
+		DIZI DW -4,23,456,4,8,67,-78,9,-99,256
+		X	DB 10
+		Y	DB	1
+		A	DW 	1
+		B 	DW	2
+		MAX DW ?		
+		
+	MAIN PROC NEAR
+		XOR SI,SI
+		MOV CX,A
+		ADC CX,SI
+		MOV CX,ELEMAN
+		LEA SI,DIZI
+		DEC CX
+		MOV AX,SI
+	L1:
+		ADD SI,2
+		CMP AX,[SI]
+		JG L2
+		MOV AX,[SI]
+	L2:
+		LOOP L1
+		MOV MAX,AX
+		RET
+	MAIN ENDP
+cdseg ENDS
+	END BASLA

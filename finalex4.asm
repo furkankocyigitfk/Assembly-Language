@@ -1,0 +1,34 @@
+	PUBLIC SAY1
+mycs SEGMENT PARA PUBLIC 'code'
+	ASSUME CS:mycs
+	SAY1 PROC FAR
+		PUSH CX
+		PUSH DI
+		PUSH BX
+		PUSH BP
+		
+		MOV BP,SP
+		MOV BX,[BP+14]
+		MOV CX,[BP+12]
+		MOV DI,[BP+10]
+		
+		XOR AX,AX
+		
+	L1:
+		CMP BX,[DI]
+		JNE atla
+		INC AX
+	
+	atla:	
+		ADD DI,2
+		LOOP L1
+		
+		POP BP
+		POP BX
+		POP DI
+		POP CX
+		
+		RETF 6
+	SAY1 ENDP
+mycs ENDS
+	END

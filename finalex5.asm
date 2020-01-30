@@ -1,0 +1,34 @@
+	EXTRN SAYIBOL:NEAR
+myds SEGMENT PARA 'data'
+dizi	DW 0A7H,0FEH,083H,72H,68H
+n		DW 5
+myds ENDS
+
+myss SEGMENT PARA STACK 'stack'
+	DW 20 DUP(?)
+myss ENDS
+
+mycs SEGMENT PARA PUBLIC 'code'
+	ASSUME CS:mycs,SS:myss,DS:myds
+	
+	MAIN PROC FAR
+		PUSH DS
+		XOR AX,AX
+		PUSH AX
+		MOV AX,myds
+		MOV DS,AX
+		
+		XOR SI,SI
+		MOV CX,n
+		
+	L1:
+		PUSH dizi[SI]
+		CALL SAYIBOL
+		MOV dizi[SI],AX
+		ADD SI,2
+		LOOP L1
+		
+		RETF
+	MAIN ENDP
+mycs ENDS
+	END MAIN
